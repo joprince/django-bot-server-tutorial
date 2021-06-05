@@ -16,10 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from .views import chat, user
+from .views import chat, user, logs
 
 urlpatterns = [
     url(r'^chat/', chat, name='chat'),
-    url(r'^user/$', user, name='chat'),
+    url(r'^user/$', user, name='user'),
+    url(r'^logs/$', logs, name='logs'),
     url(r'^admin/', admin.site.urls)
 ]

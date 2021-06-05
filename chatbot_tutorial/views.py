@@ -55,3 +55,11 @@ def respond_to_websockets(message):
                       "stupid or dumb. "
     data.save()
     return result_message
+
+
+def logs(request):
+    data = Logs.objects.all().values()
+    context = {
+        'data': data
+    }
+    return render(request, 'chatbot_tutorial/logs.html', context)
