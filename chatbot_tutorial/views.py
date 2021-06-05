@@ -1,9 +1,11 @@
 import random
 
 from django.shortcuts import render
+from .models import Logs
 
 
 def chat(request):
+    first = Logs.objects.get_or_create(user="Temp")
     context = {}
     return render(request, 'chatbot_tutorial/chatbot.html', context)
 
@@ -24,13 +26,18 @@ def respond_to_websockets(message):
     result_message = {
         'type': 'text'
     }
+    message = message.content
+    data = Logs.objects.first()
     if 'fat' in message['text']:
+        data.fat_count += 1
         result_message['text'] = random.choice(jokes['fat'])
 
     elif 'stupid' in message['text']:
+        data.stupid_count += 1
         result_message['text'] = random.choice(jokes['stupid'])
 
     elif 'dumb' in message['text']:
+        data.dumb_count += 1
         result_message['text'] = random.choice(jokes['dumb'])
 
     elif message['text'] in ['hi', 'hey', 'hello']:
@@ -41,5 +48,5 @@ def respond_to_websockets(message):
         result_message[
             'text'] = "I don't know any responses for that. If you're interested in yo mama jokes tell me fat, " \
                       "stupid or dumb. "
-
+    data.save()
     return result_message

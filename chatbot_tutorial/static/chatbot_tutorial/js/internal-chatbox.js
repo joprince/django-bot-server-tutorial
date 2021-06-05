@@ -41,7 +41,7 @@ function processAndDisplayChatMessage(message){
 
 function sendTextMessage(e) {
     message = {}
-    message.text = $(e).text()
+    message.text = $(e).text().toLowerCase();
     message.command= 'send'
     message.timestamp = new Date();
 
