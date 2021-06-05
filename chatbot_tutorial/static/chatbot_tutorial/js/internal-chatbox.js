@@ -26,7 +26,7 @@ function add_message_to_chat(data, formatted_div){
 }  
 
 
-// Function taht is called when the server sends a message via websockets to my front end.
+// Function that is called when the server sends a message via websockets to my front end.
 function processAndDisplayChatMessage(message){
 
 	var content_data = JSON.parse(message.data);
@@ -39,20 +39,14 @@ function processAndDisplayChatMessage(message){
 }
 
 
-function sendTextMessage() {
-    if ($('#messageToSend').text() == "") {
-        return
-    }
-
+function sendTextMessage(e) {
     message = {}
-    message.text = $('#messageToSend').html().replace("</div>", "").replace("<div>", "\n").replace("<br>", "\n");
+    message.text = $(e).text()
     message.command= 'send'
     message.timestamp = new Date();
-    
-    
-    $('#messageToSend').text('');
+
 	chatsock.send(JSON.stringify(message));
 	$("#message").val('').focus();
-    return false;   
+    return false;
 }
 		

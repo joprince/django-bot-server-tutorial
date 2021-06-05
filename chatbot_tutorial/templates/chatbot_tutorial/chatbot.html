@@ -38,9 +38,9 @@
                 </div>
             </div>
             <div class="btn-bar non-error">
-                <button type="button" class="btn">Stupid</button>
-                <button type="button" class="btn">Fat</button>
-                <button type="button" class="btn">Dumb</button>
+                <button id ="btn1"  type="button" class="btn" onclick="sendTextMessage(this)">Stupid</button>
+                <button id ="btn2" type="button" class="btn" onclick="sendTextMessage(this)">Fat</button>
+                <button id ="btn3" type="button" class="btn" onclick="sendTextMessage(this)">Dumb</button>
             </div>
 
         </div>
@@ -113,17 +113,6 @@
 
             // Calls the websocket connect channel
             var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/chat/stream/test-chat");
-
-
-            $("#messageToSend").keypress(function (e) {
-                var key = e.which;                
-                if (key == 13)  // trigger message send when 'enter' key is clicked
-                {
-                    $('#messageSendButton').trigger('click');
-                    return false;
-                }
-            });
-
             // Code that is called when the socket is succesfully opened
             chatsock.onopen = function(message) {
                 
