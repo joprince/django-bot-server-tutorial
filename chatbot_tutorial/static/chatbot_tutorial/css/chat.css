@@ -23,6 +23,13 @@ body {
     justify-content: center;
 }
 
+.center {
+  margin: auto;
+  position: relative;
+  text-align: center;
+  top: 35%;
+}
+
 .btn-bar .btn {
 	padding: 10px;
     width: 100px;

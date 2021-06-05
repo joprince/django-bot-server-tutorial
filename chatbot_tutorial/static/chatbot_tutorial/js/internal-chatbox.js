@@ -44,9 +44,9 @@ function sendTextMessage(e) {
     message.text = $(e).text().toLowerCase();
     message.command= 'send'
     message.timestamp = new Date();
-
+    var qry = new URLSearchParams(window.location.search);
+    message.user = qry.get('user');
 	chatsock.send(JSON.stringify(message));
-	$("#message").val('').focus();
     return false;
 }
 		

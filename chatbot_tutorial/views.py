@@ -4,8 +4,13 @@ from django.shortcuts import render
 from .models import Logs
 
 
+def user(request):
+    return render(request, 'chatbot_tutorial/user.html')
+
+
 def chat(request):
-    first = Logs.objects.get_or_create(user="Temp")
+    user_name = request.GET.get("user", "unknown")
+    first = Logs.objects.get_or_create(user=user_name)
     context = {}
     return render(request, 'chatbot_tutorial/chatbot.html', context)
 
@@ -27,7 +32,7 @@ def respond_to_websockets(message):
         'type': 'text'
     }
     message = message.content
-    data = Logs.objects.first()
+    data = Logs.objects.filter(user=message.get("user", "unknown")).first()
     if 'fat' in message['text']:
         data.fat_count += 1
         result_message['text'] = random.choice(jokes['fat'])
