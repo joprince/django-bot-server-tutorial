@@ -12,9 +12,12 @@
     <script>
         function gotochat(e) {
             var user = $("#user-name").val();
-            var str = window.location.href;
-            var url = str.slice(0,-5)+"chat/?user="+user;
-            window.location.replace(url);
+            if( user !== "")
+            {
+                var str = window.location.href;
+                var url = str.slice(0,-5)+"chat/?user="+user;
+                window.location.replace(url);
+            }
         }
         var input = document.getElementById("user-name");
        input.addEventListener("keyup", function(event) {
