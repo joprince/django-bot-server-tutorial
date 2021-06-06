@@ -40,7 +40,7 @@ def chat_start(message):
     # Genearlly add them to a room, or do other things that should be
     # done when the chat is started
     message_to_send_content = {
-        'text': "Hello to you too! If youre interested in yo mama jokes, just click on fat, stupid or dumb, "
+        'text': "Hello! If you're interested in yo mama jokes, just click on fat, stupid or dumb, "
                 "i'll tell you an appropriate joke.",
         'type': 'text',
         'source': 'BOT'
@@ -48,6 +48,7 @@ def chat_start(message):
     message.reply_channel.send({
         'text': json.dumps(message_to_send_content)
     })
+
 
 def chat_leave(message):
     # Reverse of join - remove them from everything.
@@ -59,7 +60,6 @@ def chat_leave(message):
 
 
 def chat_send(message):
-
     # First send the candidate message in the right format for
     # chatbot to print it on the message channel
     message_to_send_content = {
