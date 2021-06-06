@@ -1,35 +1,14 @@
-{% load staticfiles %}
-
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link rel="shortcut icon" href="{% static 'chatbot_tutorial/favicon.ico' %}" type="image/x-icon">
-        <link rel="icon" href="{% static 'chatbot_tutorial/favicon.ico' %}" type="image/x-icon">
-
-        <link rel="stylesheet" href="{% static 'chatbot_tutorial/bootstrap/css/bootstrap.min.css' %}">
-        <link rel="stylesheet" href="{% static 'chatbot_tutorial/css/chat.css' %}">
-
-        <link href="{% static 'chatbot_tutorial/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <base target="_blank"/>
-        <title>Websockets Bot</title>
-
-    </head>
-    <body>
-        <div class="container-fluid" id="body-container" style="border-bottom: #eee 1px solid;">
-            <div class="form-inline center" name ="user">
-                <label for="user-name">User Name</label>
-                <input class="form-control" id="user-name" placeholder="User">
-                <button type="submit" class="btn btn-primary my-1" onclick="gotochat(this)">Submit</button>
-            </div>
+{% extends "chatbot_tutorial/base.html"%}
+{% block content %}
+    <div class="container-fluid" id="body-container" style="border-bottom: #eee 1px solid;">
+        <div class="form-inline center" name ="user">
+            <label for="user-name">User Name</label>
+            <input class="form-control" id="user-name" placeholder="User">
+            <button id ="enter" type="submit" class="btn btn-primary my-1"  onclick="gotochat(this)">Submit</button>
         </div>
-    </body>
-    <script src="{% static 'chatbot_tutorial/js/reconnecting-websocket.min.js' %}" type="text/javascript" charset="utf-8"></script>
+    </div>
+{% endblock %}
+{% block script %}
     <script>
         function gotochat(e) {
             var user = $("#user-name").val();
@@ -37,5 +16,13 @@
             var url = str.slice(0,-5)+"chat/?user="+user;
             window.location.replace(url);
         }
+        var input = document.getElementById("user-name");
+       input.addEventListener("keyup", function(event) {
+                if (event.keyCode == 13)  // trigger message send when 'enter' key is clicked
+                {
+                   event.preventDefault();
+                    document.getElementById("enter").click();
+                }
+        });
     </script>
-</html>
+{% endblock %}

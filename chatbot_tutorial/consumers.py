@@ -39,8 +39,15 @@ def ws_disconnect(message):
 def chat_start(message):
     # Genearlly add them to a room, or do other things that should be
     # done when the chat is started
-    pass
-
+    message_to_send_content = {
+        'text': "Hello to you too! If youre interested in yo mama jokes, just click on fat, stupid or dumb, "
+                "i'll tell you an appropriate joke.",
+        'type': 'text',
+        'source': 'BOT'
+    }
+    message.reply_channel.send({
+        'text': json.dumps(message_to_send_content)
+    })
 
 def chat_leave(message):
     # Reverse of join - remove them from everything.

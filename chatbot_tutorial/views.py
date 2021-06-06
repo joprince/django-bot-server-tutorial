@@ -5,11 +5,13 @@ from .models import Logs
 
 
 def user(request):
-    return render(request, 'chatbot_tutorial/user.html')
+    context = {"user": "active",
+               "logs": ""}
+    return render(request, 'chatbot_tutorial/user.html', context)
 
 
 def chat(request):
-    user_name = request.GET.get("user", "unknown")
+    user_name = request.GET.get("user", "None")
     first = Logs.objects.get_or_create(user=user_name)
     context = {}
     return render(request, 'chatbot_tutorial/chatbot.html', context)
@@ -32,7 +34,7 @@ def respond_to_websockets(message):
         'type': 'text'
     }
     message = message.content
-    data = Logs.objects.filter(user=message.get("user", "unknown")).first()
+    data = Logs.objects.filter(user=str(message.get("user"))).first()
     if 'fat' in message['text']:
         data.fat_count += 1
         result_message['text'] = random.choice(jokes['fat'])
@@ -45,10 +47,6 @@ def respond_to_websockets(message):
         data.dumb_count += 1
         result_message['text'] = random.choice(jokes['dumb'])
 
-    elif message['text'] in ['hi', 'hey', 'hello']:
-        result_message[
-            'text'] = "Hello to you too! If you're interested in yo mama jokes, just tell me fat, stupid or dumb and " \
-                      "i'll tell you an appropriate joke. "
     else:
         result_message[
             'text'] = "I don't know any responses for that. If you're interested in yo mama jokes tell me fat, " \
@@ -60,6 +58,9 @@ def respond_to_websockets(message):
 def logs(request):
     data = Logs.objects.all().values()
     context = {
-        'data': data
+        'title': "Logs",
+        'data': data,
+        "user": "",
+        "logs": "active"
     }
     return render(request, 'chatbot_tutorial/logs.html', context)
