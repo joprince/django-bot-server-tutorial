@@ -3,6 +3,9 @@ from django.utils import timezone
 
 
 class Logs(models.Model):
+    """
+    Model of the table logging button clicks
+    """
     user = models.CharField(max_length=50, null=False, unique=True, blank=False)
     stupid_count = models.IntegerField(default=0)
     fat_count = models.IntegerField(default=0)

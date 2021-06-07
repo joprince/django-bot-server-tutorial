@@ -5,12 +5,22 @@ from .models import Logs
 
 
 def user(request):
+    """
+    Function to handle user name on registration
+    :param request: request from web page
+    :return: webpage for user-name submission
+    """
     context = {"user": "active",
                "logs": ""}
     return render(request, 'chatbot_tutorial/user.html', context)
 
 
 def chat(request):
+    """
+    Function to handle request to chatbot
+    :param request: request from webpage
+    :return: webpage of the chatbot
+    """
     user_name = request.GET.get("user", "None")
     first = Logs.objects.get_or_create(user=user_name)
     context = {}
@@ -18,6 +28,11 @@ def chat(request):
 
 
 def respond_to_websockets(message):
+    """
+    Function to generate response for joke keywords
+    :param message: message sent from user through bot
+    :return: response containing the joke
+    """
     jokes = {
         'stupid': ["""Yo' Mama is so stupid, she needs a recipe to make ice cubes.""",
                    """Yo' Mama is so stupid, she thinks DNA is the National Dyslexics Association."""],
@@ -56,6 +71,11 @@ def respond_to_websockets(message):
 
 
 def logs(request):
+    """
+    Function to render the button logs
+    :param request: request from webpage
+    :return: rendered webpage of log table
+    """
     data = Logs.objects.all().values()
     context = {
         'title': "Logs",
